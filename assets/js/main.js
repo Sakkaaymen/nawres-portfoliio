@@ -7,29 +7,43 @@ function scrollHeader() {
 }
 window.addEventListener("scroll", scrollHeader);
 
-/*=============== SERVICES MODAL ===============*/
-// Get the modal
-const modalViews = document.querySelectorAll(".services__modal"),
-  modalBtns = document.querySelectorAll(".services__button"),
-  modalClose = document.querySelectorAll(".services__modal-close");
+/*=============== SERVICES & WORK MODALS ===============*/
+const modalBtns = document.querySelectorAll(".services__button, .work__button");
+const modalCloses = document.querySelectorAll(".services__modal-close");
 
-// When the user clicks on the button, open the modal
-let modal = function (modalClick) {
-  modalViews[modalClick].classList.add("active-modal");
-};
+/* Open modal */
+modalBtns.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    const modal = btn.closest(".services__card, .work__card")
+                     .querySelector(".services__modal");
 
-modalBtns.forEach((mb, i) => {
-  mb.addEventListener("click", () => {
-    modal(i);
+    modal.classList.add("active-modal");
   });
 });
 
-modalClose.forEach((mc) => {
-  mc.addEventListener("click", () => {
-    modalViews.forEach((mv) => {
-      mv.classList.remove("active-modal");
-    });
+/* Close modal */
+modalCloses.forEach((close) => {
+  close.addEventListener("click", () => {
+    close.closest(".services__modal").classList.remove("active-modal");
   });
+});
+
+/* Close on outside click */
+document.querySelectorAll(".services__modal").forEach((modal) => {
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) {
+      modal.classList.remove("active-modal");
+    }
+  });
+});
+
+/* Close with ESC */
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    document.querySelectorAll(".services__modal").forEach((modal) => {
+      modal.classList.remove("active-modal");
+    });
+  }
 });
 
 /*=============== MIXITUP FILTER PORTFOLIO ===============*/

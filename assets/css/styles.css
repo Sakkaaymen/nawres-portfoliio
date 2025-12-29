@@ -636,6 +636,7 @@ body.light-theme {
 .active-modal {
   visibility: visible;
   opacity: 1;
+  pointer-events: auto;
 }
 
 /*=============== WORK ===============*/
